@@ -3,7 +3,10 @@
 
 #include <vector>
 #include <fstream>
-#include "utils.h"
+#include "supplier_reader.h"
+#include "nation_reader.h"
+
+using namespace std;
 
 // 테이블 입력
 void inputTable();

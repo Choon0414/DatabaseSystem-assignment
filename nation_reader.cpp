@@ -1,22 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <vector>
-#include <string>
 #include "nation_reader.h"
 
 using namespace std;
 
-// NATION 테이블의 레코드 구조 정의
-struct Nation {
-    int nationKey;
-    string name;
-    int regionKey;
-    string comment;
-};
-
 // 한 줄 데이터를 Nation 구조체로 파싱
-Nation parseRecord(const string &line) {
+Nation parseNationRecord(const std::string &line) {
     Nation record;
     istringstream stream(line);
     string field;
@@ -36,13 +26,13 @@ Nation parseRecord(const string &line) {
 }
 
 // 파일에서 블록 단위로 읽기
-vector<Nation> readBlock(ifstream &file, int blockSize) {
+vector<Nation> readNationBlock(ifstream &file, int blockSize) {
     vector<Nation> block;
     string line;
     int count = 0;
 
     while (count < blockSize && getline(file, line)) {
-        block.push_back(parseRecord(line));
+        block.push_back(parseNationRecord(line));
         count++;
     }
 

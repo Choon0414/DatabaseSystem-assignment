@@ -1,28 +1,11 @@
-#include <iostream>
-#include <fstream>
 #include <sstream>
-#include <vector>
-#include <string>
 #include "supplier_reader.h"
 
-using namespace std;
-
-// SUPPLIER 테이블의 레코드 구조 정의
-struct Supplier {
-    int suppKey;
-    string name;
-    string address;
-    int nationKey;
-    string phone;
-    double acctBal;
-    string comment;
-};
-
 // 한 줄 데이터를 Supplier 구조체로 파싱
-Supplier parseRecord(const string &line) {
+Supplier parseSupplierRecord(const std::string &line) {
     Supplier record;
-    istringstream stream(line);
-    string field;
+    std::istringstream stream(line);
+    std::string field;
 
     // 필드 분리 및 할당
     getline(stream, field, '|');
@@ -45,13 +28,13 @@ Supplier parseRecord(const string &line) {
 }
 
 // 파일에서 블록 단위로 읽기
-vector<Supplier> readBlock(ifstream &file, int blockSize) {
-    vector<Supplier> block;
-    string line;
+std::vector<Supplier> readSupplierBlock(std::ifstream &file, int blockSize) {
+    std::vector<Supplier> block;
+    std::string line;
     int count = 0;
 
     while (count < blockSize && getline(file, line)) {
-        block.push_back(parseRecord(line));
+        block.push_back(parseSupplierRecord(line));
         count++;
     }
 
