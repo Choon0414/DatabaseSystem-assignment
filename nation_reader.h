@@ -3,19 +3,20 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
-using namespace std;
-
-// NATION 테이블의 레코드 구조 정의
+// Nation 구조체 정의
 struct Nation {
-    int nationKey;
-    string name;
-    int regionKey;
-    string comment;
+    int nationKey;            // 국가 키
+    std::string name;         // 국가 이름
+    int regionKey;            // 지역 키
+    std::string comment;      // 주석
 };
 
-// NATION 데이터를 읽어 메모리에 로드하는 함수
-Nation parseNationRecord(const string &line);
-std::vector<Nation> readNationBlock(ifstream &file, int blockSize);
+// Nation 데이터를 파싱하는 함수 선언
+Nation parseNationRecord(const std::string &line);
+
+// Nation 데이터를 파일에서 한 번에 로드하는 함수 선언
+std::vector<Nation> loadAllNations(std::ifstream &file);
 
 #endif // NATION_READER_H

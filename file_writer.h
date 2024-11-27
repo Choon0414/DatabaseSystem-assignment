@@ -3,8 +3,26 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
-// 결과 데이터를 파일에 저장하는 함수
-void saveJoinResults(const std::string &outputFile, const std::vector<std::string> &results);
+class FileWriter {
+private:
+    std::ofstream outputStream;          // 출력 파일 스트림
+    std::vector<std::string> buffer;     // 메모리 버퍼
+    size_t bufferSize;                   // 버퍼 크기
+
+public:
+    // 생성자
+    FileWriter(const std::string &fileName, size_t bufferSize, bool appendMode = true);
+
+    // 소멸자
+    ~FileWriter();
+
+    // 결과 추가
+    void addResult(const std::string &result);
+
+    // 버퍼 플러시
+    void flushBuffer();
+};
 
 #endif // FILE_WRITER_H

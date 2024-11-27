@@ -1,47 +1,30 @@
 #include "join_algorithm.h"
-#include <iostream>
+#include "table.h" // Table 클래스 정의 포함
+#include "supplier_reader.h"
 #include <fstream>
 #include <vector>
-#include <string>
+#include <iostream>
 
 using namespace std;
 
-// 테이블 구조 정의
-// struct Table {
-//     string name;
-//     int tupleCount;
+// 블록 중첩 조인 함수
+void blockNestedLoopJoin(ifstream &supplierStream, const vector<Table> &tables, int blockSize) {
+    // 조인 로직 구현
+    while (!supplierStream.eof()) {
+        vector<Supplier> suppliers = readSupplierBlock(supplierStream, blockSize);
 
-//     Table(string tableName, int count) : name(tableName), tupleCount(count) {}
-// };
-
-// 테이블 입력
-// Table inputTable(ifstream &fileStream) {
-//     string tableName;
-//     int tupleCount;
-
-//     // 테이블 이름과 튜플 수 읽기
-//     if (fileStream >> tableName >> tupleCount) {
-//         cout << "Table " << tableName << " with " << tupleCount << " tuples loaded." << endl;
-//         return Table(tableName, tupleCount);
-//     }
-
-//     throw runtime_error("Failed to read table information from file.");
-// }
-
-// // 메인 테이블 결정
-// Table decideMainTable(const Table &table1, const Table &table2) {
-//     if (table1.tupleCount <= table2.tupleCount) {
-//         cout << "Main table: " << table1.name << endl;
-//         return table1;
-//     } else {
-//         cout << "Main table: " << table2.name << endl;
-//         return table2;
-//     }
-// }
-
-// 블록 중첩 루프 조인
-void blockNestedLoopJoin(ifstream &supplierStream, const vector<Table> &tables, 
-                         ofstream &outputStream, int blockSize) {
-    // 고정길이 레코드 블록 중첩 조인 로직 구현 (예시)
-    cout << "Performing block nested loop join with block size: " << blockSize << endl;
+        for (const auto &supplier : suppliers) {
+            for (const auto &table : tables) {
+                // 조건: Supplier의 nationKey와 Table의 레코드 key가 일치
+                try {
+                    TableRecord record = table.getRecord(supplier.nationKey);
+                    cout << "Join Result: Supplier " << supplier.name
+                         << " -> Nation " << record.fields[0] << endl;
+                } catch (const out_of_range &e) {
+                    // 테이블에 키가 없을 경우 처리
+                    cerr << "Record not found for key: " << supplier.nationKey << endl;
+                }
+            }
+        }
+    }
 }

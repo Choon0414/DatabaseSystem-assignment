@@ -1,5 +1,5 @@
-#include <sstream>
 #include "supplier_reader.h"
+#include <sstream>
 
 // 한 줄 데이터를 Supplier 구조체로 파싱
 Supplier parseSupplierRecord(const std::string &line) {
@@ -7,7 +7,6 @@ Supplier parseSupplierRecord(const std::string &line) {
     std::istringstream stream(line);
     std::string field;
 
-    // 필드 분리 및 할당
     getline(stream, field, '|');
     record.suppKey = stoi(field);
 
