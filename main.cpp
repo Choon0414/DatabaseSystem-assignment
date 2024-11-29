@@ -82,7 +82,6 @@ int main() {
     cout << "Output writing took: " << outputTime << " seconds" << endl;
     cout << "Overall processing took: " << overallTime << " seconds" << endl;
     cout << "=====================" << endl;
-
     cout << "Data processing completed. Results saved to " << outputFile << endl;
 
     return 0;
