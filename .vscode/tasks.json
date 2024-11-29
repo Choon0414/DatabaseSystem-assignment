@@ -8,16 +8,38 @@
             "args": [
                 "-g",
                 "main.cpp",
-                "supplier_reader.cpp",  // 추가: 반드시 구현 파일 포함
+                "supplier_reader.cpp",
                 "-o",
                 "${workspaceFolder}/main.exe"
+            ],
+            "group": "build",
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Build and link main.cpp with supplier_reader.cpp"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++ 활성 파일 빌드",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
             ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": ["$gcc"],
-            "detail": "Build and link main.cpp with supplier_reader.cpp"
+            "detail": "디버거에서 생성된 작업입니다."
         }
     ]
 }
