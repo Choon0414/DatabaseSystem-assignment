@@ -55,14 +55,14 @@ int main() {
     vector<Table> tables = {nationTable};
 
     auto loadEnd = high_resolution_clock::now();
-    loadTime = duration_cast<duration<double>>(loadEnd - loadStart).count();
+    loadTime = d`uration_cast<duration<double>>(loadEnd - loadStart).count();
 
     // 조인 연산 시간 측정
     auto joinStart = high_resolution_clock::now();
 
     // 블록 중첩 조인 수행 및 결과 파일에 저장
     FileWriter fileWriter(outputFile, 1000); // 버퍼 크기 1000
-    blockNestedLoopJoin(supplierStream, tables, 100); // 블록 크기 100
+    blockNestedLoopJoin(supplierStream, tables, 1000); // 블록 크기 100
 
     auto joinEnd = high_resolution_clock::now();
     joinTime = duration_cast<duration<double>>(joinEnd - joinStart).count();
